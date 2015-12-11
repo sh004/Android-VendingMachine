@@ -1,0 +1,276 @@
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="4"
+    android:rowCount="2"
+    android:background="#bdc0ba"
+    tools:context=".MainActivity"
+    android:longClickable="false">
+
+
+    <LinearLayout
+        android:id="@+id/VendingMachine"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan = "4"
+        android:background="#fcfaf2"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <!--POP-->
+        <TextView
+            android:id="@+id/POP"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF91ad70"
+            android:textColor="#FFffffff"
+            android:textSize="40sp"
+            android:text="H A M B U R G E R"
+            android:gravity="center" />
+
+
+
+        <!--商品-->
+        <LinearLayout
+            android:id="@+id/Item"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:paddingTop="15dp">
+
+            <!--商品１-->
+            <LinearLayout
+                android:id="@+id/one"
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/item1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/item1"
+                    android:background="@drawable/border" />
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/price1" />
+            </LinearLayout>
+
+            <!--商品２-->
+            <LinearLayout
+                android:id="@+id/two"
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/item2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/item2"
+                    android:background="@drawable/border" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/price2" />
+            </LinearLayout>
+
+            <!--商品３-->
+            <LinearLayout
+                android:id="@+id/three"
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/item3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/item3"
+                    android:background="@drawable/border" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/price3" />
+            </LinearLayout>
+
+            <!--お金関係-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_weight="1">
+
+                <!--金額表示-->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/en"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="#373c38"
+                        android:textColor="#1c1c1c"
+                        android:textSize="20dp"
+                        android:text="￥"
+                        android:layout_gravity="bottom" />
+
+                    <TextView
+                        android:id="@+id/cash"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:paddingRight="5dp"
+                        android:background="#373c38"
+                        android:textColor="#cb4042"
+                        android:textSize="20dp"
+                        android:text="250"
+                        android:layout_gravity="bottom|right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <!--レバー-->
+                    <ImageView
+                        android:id="@+id/lever"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="3dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/lever" />
+
+                    <!--硬貨投入口-->
+                    <ImageView
+                        android:id="@+id/coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/coin" />
+
+                </LinearLayout>
+
+                <!--硬貨返却口-->
+                <ImageView
+                    android:id="@+id/returnCoin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:src="@drawable/return_coin"
+                    android:paddingTop="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:paddingLeft="30dp"
+            android:gravity="center">
+
+            <!--商品取出口-->
+            <LinearLayout
+                android:id="@+id/Output"
+                android:orientation="horizontal"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:focusableInTouchMode="false">
+
+                <ImageView
+                    android:id="@+id/outputItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="3dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/output_item"
+                    android:focusableInTouchMode="false" />
+
+            </LinearLayout>
+
+            <!--ランプ-->
+            <TextView
+                android:id="@+id/lamp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:gravity="bottom|center"
+                android:textSize="30dp"
+                android:textColor="#787878"
+                android:text="●" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/coin500"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan = "1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/coin500" />
+
+        <ImageView
+            android:id="@+id/coin100"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan = "1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/coin100" />
+
+        <ImageView
+            android:id="@+id/coin50"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan = "1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/coin50" />
+
+        <ImageView
+            android:id="@+id/coin10"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_columnWeight="1"
+            android:layout_columnSpan = "1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/coin10" />
+
+</GridLayout>
