@@ -27,6 +27,10 @@ public class MainActivity extends ActionBarActivity {
     private ImageView[] dragImage = new ImageView[4];
     private int[] dragImageId = new int[]{R.id.coin500, R.id.coin100, R.id.coin50, R.id.coin10};
     private GridLayout MainLayout;
+//    private int dragLocalX;
+//    private int dragLocalY;
+//    private int screenX;
+//    private int screenY;
 
 
     Timer timer = null;
@@ -54,6 +58,12 @@ public class MainActivity extends ActionBarActivity {
         change = 0;                                                 //おつり
         makeItem = true;                                            //作成中かどうか
         timer = new Timer();                                        //作成中のタイマー
+
+//        for(int i = 0; i < 4; i++) {
+//            dragImage[i].setOnTouchListener(this);
+//        }
+//        coin = (ImageView)findViewById(R.id.coin);
+//        coin.setOnTouchListener(this);
 
         //仮設定
         hasPut = true;
@@ -239,6 +249,54 @@ public class MainActivity extends ActionBarActivity {
             oldy = y;
 
             return true;
+
+
+//            int x = (int)event.getRawX();
+//            int y = (int)event.getRawY();
+//
+//            switch(event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//
+//                    dragLocalX = COIN.getLeft();
+//                    dragLocalY = COIN.getTop();
+//
+//                    screenX = x;
+//                    screenY = y;
+//
+//                    break;
+//
+//                case MotionEvent.ACTION_MOVE:
+//
+//                    int diffX = screenX - x;
+//                    int diffY = screenY - y;
+//
+//                    dragLocalX -= diffX;
+//                    dragLocalY -= diffY;
+//
+//                    COIN.layout(dragLocalX,
+//                            dragLocalY,
+//                            dragLocalX + COIN.getWidth(),
+//                            dragLocalY + COIN.getHeight());
+//
+//                    screenX = x;
+//                    screenY = y;
+//
+//                    break;
+//
+//                case MotionEvent.ACTION_UP:
+//
+//                    int coinLeft    = coin.getLeft() + coin.getWidth()/2;
+//                    int dragRight  = coin.getLeft() + coin.getWidth();
+//                    int coinTop     = coin.getTop()  + coin.getHeight()/2;
+//                    int dragBottom = coin.getTop() + coin.getHeight();
+//
+//                    //ドロップ時の処理
+//                    if (dragRight > coinLeft && dragBottom > coinTop) {
+//                        MainLayout.removeView(COIN);
+//                    }
+//                    break;
+//            }
+//            return true;
         }
     }
 
