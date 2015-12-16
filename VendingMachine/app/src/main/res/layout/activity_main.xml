@@ -233,44 +233,48 @@
 
     </LinearLayout>
 
-        <ImageView
-            android:id="@+id/coin500"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan = "1"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/coin500" />
+    <ImageView
+        android:id="@+id/coin500"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_columnWeight="1"
+        android:layout_columnSpan = "1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/coin500"
+        android:layout_marginLeft="20dp" />
 
-        <ImageView
-            android:id="@+id/coin100"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan = "1"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/coin100" />
+    <ImageView
+        android:id="@+id/coin100"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_columnWeight="1"
+        android:layout_columnSpan = "1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/coin100"
+        android:layout_marginLeft="20dp" />
 
-        <ImageView
-            android:id="@+id/coin50"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan = "1"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/coin50" />
+    <ImageView
+        android:id="@+id/coin50"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:layout_columnSpan = "1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/coin50"
+        android:layout_marginLeft="20dp" />
 
-        <ImageView
-            android:id="@+id/coin10"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_columnWeight="1"
-            android:layout_columnSpan = "1"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/coin10" />
+    <ImageView
+        android:id="@+id/coin10"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_columnWeight="1"
+        android:layout_columnSpan = "1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/coin10"
+        android:layout_marginLeft="20dp" />
 
 </GridLayout>
