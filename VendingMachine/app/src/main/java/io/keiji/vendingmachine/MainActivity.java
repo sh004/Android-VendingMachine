@@ -20,17 +20,12 @@ import java.util.TimerTask;
 
 public class MainActivity extends ActionBarActivity {
 
-    private TextView en, cash, lamp;
+    private TextView yen, cash, lamp;
     private ImageView lever, coin, returnCoin, outputItem;
     private Button button1, button2, button3;
     private DragViewListener listener;
     private ImageView[] dragImage = new ImageView[4];
     private int[] dragImageId = new int[]{R.id.coin500, R.id.coin100, R.id.coin50, R.id.coin10};
-    private GridLayout MainLayout;
-//    private int dragLocalX;
-//    private int dragLocalY;
-//    private int screenX;
-//    private int screenY;
 
 
     Timer timer = null;
@@ -44,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        en = (TextView) findViewById(R.id.en);                      //円マーク
+        yen = (TextView) findViewById(R.id.en);                      //円マーク
         cash = (TextView) findViewById(R.id.cash);                  //金額表示
         lever = (ImageView) findViewById(R.id.lever);               //レバー
         coin = (ImageView) findViewById(R.id.coin);                 //硬貨投入口
@@ -55,30 +50,21 @@ public class MainActivity extends ActionBarActivity {
         button2 = (Button) findViewById(R.id.button2);              //チーズバーガー
         button3 = (Button) findViewById(R.id.button3);              //ダブルチーズバーガー
 
+        pay = 0;                                                    //投入金額
+        cash.setText("");                                           //金額表示
+        yen.setTextColor(Color.rgb(28, 28, 28));                    //￥の色
+
         change = 0;                                                 //おつり
         makeItem = true;                                            //作成中かどうか
         timer = new Timer();                                        //作成中のタイマー
 
-//        for(int i = 0; i < 4; i++) {
-//            dragImage[i].setOnTouchListener(this);
-//        }
-//        coin = (ImageView)findViewById(R.id.coin);
-//        coin.setOnTouchListener(this);
-
-        //仮設定
-        hasPut = true;
-        pay = 250;
-        cash.setText(Integer.toString(pay));
-
-
-        //硬貨投入
         for (int i = 0; i < 4; i++) {
             dragImage[i] = (ImageView)this.findViewById(dragImageId[i]);
             ImageView dragView = dragImage[i];
-            listener = new DragViewListener(dragView);
+            listener = new DragViewListener(dragView, i);
             dragView.setOnTouchListener(listener);
         }
-        en.setTextColor(Color.rgb(203, 64, 66));
+
 
         //レバー
         lever.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +74,7 @@ public class MainActivity extends ActionBarActivity {
                 change += pay;
                 pay = 0;
                 cash.setText("");
-                en.setTextColor(Color.rgb(28, 28, 28));
+                yen.setTextColor(Color.rgb(28, 28, 28));
                 Toast.makeText(MainActivity.this, "返却レバーを引きました。", Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +115,15 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (hasPut == true) {
-                    itemName = "ハンバーガー";
-                    itemPrice = 200;
-                    buy();
+                    if (makeItem == false) {
+                        Toast.makeText(MainActivity.this, "しばらくお待ちください。", Toast.LENGTH_SHORT).show();
+                    } else if (hasBought == true) {
+                        Toast.makeText(MainActivity.this, "商品を取り出してください。", Toast.LENGTH_SHORT).show();
+                    } else {
+                        itemName = "ハンバーガー";
+                        itemPrice = 200;
+                        buy();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "お金を入れてください。", Toast.LENGTH_SHORT).show();
                 }
@@ -143,23 +135,35 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (hasPut == true) {
-                    itemName = "チーズバーガー";
-                    itemPrice = 250;
-                    buy();
+                    if (makeItem == false) {
+                        Toast.makeText(MainActivity.this, "しばらくお待ちください。", Toast.LENGTH_SHORT).show();
+                    } else if (hasBought == true) {
+                        Toast.makeText(MainActivity.this, "商品を取り出してください。", Toast.LENGTH_SHORT).show();
+                    } else {
+                        itemName = "チーズバーガー";
+                        itemPrice = 250;
+                        buy();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "お金を入れてください。", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        //ダブルチーズバーガー
+        //テリヤキバーガー
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hasPut == true) {
-                    itemName = "ダブルチーズバーガー";
-                    itemPrice = 370;
-                    buy();
+                    if (makeItem == false) {
+                        Toast.makeText(MainActivity.this, "しばらくお待ちください。", Toast.LENGTH_SHORT).show();
+                    } else if (hasBought == true) {
+                        Toast.makeText(MainActivity.this, "商品を取り出してください。", Toast.LENGTH_SHORT).show();
+                    } else {
+                        itemName = "テリヤキバーガー";
+                        itemPrice = 360;
+                        buy();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "お金を入れてください。", Toast.LENGTH_SHORT).show();
                 }
@@ -178,10 +182,10 @@ public class MainActivity extends ActionBarActivity {
                 lamp.setTextColor(Color.rgb(203, 64, 66));
                 timer.schedule(new MakeTimer(), 5000);        //5秒
 
-                change = pay - itemPrice;
+                change += pay - itemPrice;
                 pay = 0;
                 cash.setText("");
-                en.setTextColor(Color.rgb(28, 28, 28));
+                yen.setTextColor(Color.rgb(28, 28, 28));
                 hasPut = false;
             } else {
                 Toast.makeText(MainActivity.this, itemPrice - pay + "円足りません。", Toast.LENGTH_SHORT).show();
@@ -205,14 +209,27 @@ public class MainActivity extends ActionBarActivity {
 
     //硬貨のドラッグ
     public class DragViewListener implements OnTouchListener {
-        private ImageView COIN;
+        private GridLayout MainLayout;
+        private ImageView COIN;         //硬貨の画像
+        private int money;                  //硬貨の金額
 
         //ドラッグ中に移動量を取得するための変数
         private int oldx;
         private int oldy;
 
-        public DragViewListener(ImageView dragImage) {
-            this.COIN = dragImage;
+        public DragViewListener(ImageView dragCoin, int num) {
+            this.COIN = dragCoin;
+
+            switch (num) {
+                case 0: money = 500;
+                        break;
+                case 1: money = 100;
+                        break;
+                case 2: money = 50;
+                        break;
+                case 3: money = 10;
+                        break;
+            }
         }
 
         @Override
@@ -232,6 +249,7 @@ public class MainActivity extends ActionBarActivity {
                     COIN.layout(left, top, left + COIN.getWidth(), top + COIN.getHeight());
                     break;
 
+                //硬貨投入
                 case MotionEvent.ACTION_UP:
                     int coinPlusLeft = coin.getLeft() + coin.getWidth()/2;
                     int coinPlusTop = coin.getTop()  + coin.getHeight()/2;
@@ -239,6 +257,17 @@ public class MainActivity extends ActionBarActivity {
                     int targetBottom = coin.getTop() + coin.getHeight();
 
                     if (targetRight > coinPlusLeft && targetBottom > coinPlusTop) {
+                        hasPut = true;
+                        yen.setTextColor(Color.rgb(203, 64, 66));
+
+                        int k = pay + money;
+                        if (k >= 1000) {
+                            Toast.makeText(MainActivity.this, "これ以上入れないでください。", Toast.LENGTH_SHORT).show();
+                        } else {
+                            pay += money;
+                            cash.setText(Integer.toString(pay));
+                        }
+
                         MainLayout.removeView(coin);
                     }
                     break;
@@ -249,54 +278,6 @@ public class MainActivity extends ActionBarActivity {
             oldy = y;
 
             return true;
-
-
-//            int x = (int)event.getRawX();
-//            int y = (int)event.getRawY();
-//
-//            switch(event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//
-//                    dragLocalX = COIN.getLeft();
-//                    dragLocalY = COIN.getTop();
-//
-//                    screenX = x;
-//                    screenY = y;
-//
-//                    break;
-//
-//                case MotionEvent.ACTION_MOVE:
-//
-//                    int diffX = screenX - x;
-//                    int diffY = screenY - y;
-//
-//                    dragLocalX -= diffX;
-//                    dragLocalY -= diffY;
-//
-//                    COIN.layout(dragLocalX,
-//                            dragLocalY,
-//                            dragLocalX + COIN.getWidth(),
-//                            dragLocalY + COIN.getHeight());
-//
-//                    screenX = x;
-//                    screenY = y;
-//
-//                    break;
-//
-//                case MotionEvent.ACTION_UP:
-//
-//                    int coinLeft    = coin.getLeft() + coin.getWidth()/2;
-//                    int dragRight  = coin.getLeft() + coin.getWidth();
-//                    int coinTop     = coin.getTop()  + coin.getHeight()/2;
-//                    int dragBottom = coin.getTop() + coin.getHeight();
-//
-//                    //ドロップ時の処理
-//                    if (dragRight > coinLeft && dragBottom > coinTop) {
-//                        MainLayout.removeView(COIN);
-//                    }
-//                    break;
-//            }
-//            return true;
         }
     }
 
